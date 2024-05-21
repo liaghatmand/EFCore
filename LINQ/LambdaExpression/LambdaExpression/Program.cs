@@ -102,9 +102,9 @@ bool DoesAnyBeginWithP_Func(string word)
 //With Lambda Expressions
 
 
-bool isAnyLargerThan100_Lambda = IsIntAny(numbers, number => number > 100);
-bool isAnyEvenNumbers_Lambda = IsIntAny(numbers, number => number % 2 == 0);
-bool doesAnyBeginWithP_Lambda = IsStringAny(words, word =>
+bool isAnyLargerThan100_Lambda = IsIntAnyLambda(numbers, number => number > 100);
+bool isAnyEvenNumbers_Lambda = IsIntAnyLambda(numbers, number => number % 2 == 0);
+bool doesAnyBeginWithP_Lambda = IsStringAnyLambda(words, word =>
 {
     foreach (char letter in word)
     {
@@ -119,7 +119,7 @@ Console.WriteLine($"Is there any even numbers?: {isAnyEvenNumbers_Lambda}");
 Console.WriteLine($"Does any word begin with P?: {doesAnyBeginWithP_Lambda}");
 Console.ReadKey();
 
-static bool IsIntAny(int[] numbers, Func<int, bool> predicate)
+static bool IsIntAnyLambda(int[] numbers, Func<int, bool> predicate)
 {
     foreach (int number in numbers)
     {
@@ -128,7 +128,7 @@ static bool IsIntAny(int[] numbers, Func<int, bool> predicate)
     return false;
 }
 
-static bool IsStringAny(string[] words, Func<string, bool> predicate)
+static bool IsStringAnyLambda(string[] words, Func<string, bool> predicate)
 {
     foreach (string word in words)
     {
