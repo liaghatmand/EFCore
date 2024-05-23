@@ -29,3 +29,18 @@ foreach (var word in shortwords)
     Console.WriteLine(word);
 }
 
+
+//More interesting example, Try tracing it:
+var animals = new List<string> {
+    "Duck","Lion","Dolphin","Tigers"};
+
+var animalsWithD = animals.Where(
+    animal =>
+    {
+        Console.WriteLine("Cheking animal:" + animal);
+        return animal.StartsWith('D');
+    });
+foreach (var animal in animalsWithD)
+{
+    Console.WriteLine(animal);
+}
