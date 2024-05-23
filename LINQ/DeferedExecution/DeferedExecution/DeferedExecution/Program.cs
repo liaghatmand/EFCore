@@ -5,7 +5,7 @@
 var words = new List<string> { "a", "bb", "ccc", "dddd" };
 
 //The query is only created here, this is just a query not data.
-var shortwords = words.Where(word => word.Length < 3).ToList();
+var shortwords = words.Where(word => word.Length < 3);
 
 //The execution (materialization) happens in the foreach loop.
 Console.WriteLine("First Iteration:\n");
