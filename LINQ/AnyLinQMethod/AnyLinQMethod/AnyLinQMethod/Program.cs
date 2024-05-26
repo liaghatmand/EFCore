@@ -9,7 +9,7 @@ var numbers = new[] { 5, 9, 2, 12, 6 };
 
 bool isAnyLargerThan10  = numbers.Any(number => number > 10);
 
-Console.WriteLine(isAnyLargerThan10);
+Console.WriteLine("isAnyLargerThan10:" + isAnyLargerThan10);
 
 //Ex2
 
@@ -20,8 +20,12 @@ var pets = new[]
     new Pet(2, "Storm", PetType.Cat, 0.9f),
     new Pet(3, "boss", PetType.Dog, 0.9f),
     new Pet(4, "harry", PetType.Fish, 0.9f)
-
 };
 
 var isAnyPetWithThisCriterias = pets.Any(pet => pet.Name.Length > 6 && pet.Id < 2);
 
+Console.WriteLine("isAnyPetWithThisCriterias:" + isAnyPetWithThisCriterias);
+
+var petsIsNotEmpty = pets.Any();
+
+Console.WriteLine("isAnyPetWithThisCriterias:" + petsIsNotEmpty);
