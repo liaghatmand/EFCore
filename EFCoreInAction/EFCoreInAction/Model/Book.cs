@@ -14,9 +14,8 @@ namespace EFCoreInAction.Data
         public string publisher { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public DateTime PublishedOn { get; set; }
-        public int? AuthorId { get; set; }
         public PriceOffer? Promotion { get; set; }
-        public Author? Author { get; set; }
+        public ICollection<Author> Authors { get; set; } = new List<Author>();
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }

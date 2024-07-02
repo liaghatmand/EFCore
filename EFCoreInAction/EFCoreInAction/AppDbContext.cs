@@ -1,5 +1,6 @@
 ﻿using EFCoreInAction.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace EFCoreInAction
 {
@@ -18,5 +19,6 @@ namespace EFCoreInAction
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Author { get; set; }
     }
 }

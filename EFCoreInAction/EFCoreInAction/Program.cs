@@ -7,40 +7,40 @@ static void ListAll()
     using (var db = new AppDbContext())
     {
         foreach (var book in db.Books.AsNoTracking()
-            .Include(book => book.Reviews)) 
+            .Include(book => book.Authors)) 
         {
-            foreach (var review in book.Reviews) 
+            if (book != null)
             {
-                var user = review.UserName;
-                var star = review.NumStars;
-                var Comment = review.Comment;
-                Console.WriteLine($"user = {user}, star = {star}, Comment = {Comment}");
+                Console.WriteLine($"{book.Title}");
+                if (book.Authors.Count > 0)
+                {
+                    Console.WriteLine($"{book.Authors.FirstOrDefault().Name}");
+                }
             }
-            
+            else
+                Console.WriteLine("no book was found!");
         }
     }
 }
-static void AddReview()
+static void AddWithPreExistingAuthor()
 {
     using (var db = new AppDbContext())
     {
-        var book = new Book
+        var foundAuthor = db.Author.
+            SingleOrDefault(author => author.Name == "zahra");
+        var book = new Book() { Title = "MyBook"};
+        if (foundAuthor != null)
         {
-            Reviews = new List<Review>
-            {
-                new Review
-                {
-                    NumStars = 1,
-                    UserName = "Liaghatmand",
-                    Comment = "Great Book!"
-                }
-            }
-        };
-        db.Add(book);
+            book.Authors.Add(foundAuthor);
+        }
+        if (book != null)
+        {
+            db.Add(book);
+        }
         db.SaveChanges();
         ListAll();
     }
 }
 Console.WriteLine("start");
-ListAll();
-AddReview();
+
+AddWithPreExistingAuthor();
