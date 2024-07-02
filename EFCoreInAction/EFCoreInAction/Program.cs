@@ -1,4 +1,5 @@
 ﻿using EFCoreInAction;
+using EFCoreInAction.Data;
 using Microsoft.EntityFrameworkCore;
 
 static void ListAll() 
@@ -6,30 +7,40 @@ static void ListAll()
     using (var db = new AppDbContext())
     {
         foreach (var book in db.Books.AsNoTracking()
-            .Include(book => book.Author)) 
+            .Include(book => book.Reviews)) 
         {
-            var webUrl = book.Author.WebUrl == null ? "- no web Url was given-" : book.Author.WebUrl;
-            Console.WriteLine($"{book.Title} by {book.Author.Name}");
-            Console.WriteLine(" " + "Published on " + $"{book.PublishedOn:dd-MMM-yyyy}" + $". {webUrl}");
+            foreach (var review in book.Reviews) 
+            {
+                var user = review.UserName;
+                var star = review.NumStars;
+                var Comment = review.Comment;
+                Console.WriteLine($"user = {user}, star = {star}, Comment = {Comment}");
+            }
+            
         }
     }
 }
-static void ChangeUrl()
+static void AddReview()
 {
-    Console.WriteLine("New Quantom Networking WebUrl > ");
-    var newWebUrl = Console.ReadLine();
     using (var db = new AppDbContext())
     {
-        var singleBook = db.Books
-        .Include(book => book.Author)
-        .Single(book => book.Title == "Quantum Networking");
-        singleBook.Author.WebUrl = newWebUrl;
+        var book = new Book
+        {
+            Reviews = new List<Review>
+            {
+                new Review
+                {
+                    NumStars = 1,
+                    UserName = "Liaghatmand",
+                    Comment = "Great Book!"
+                }
+            }
+        };
+        db.Add(book);
         db.SaveChanges();
-        Console.WriteLine("... SavedChanges called.");
+        ListAll();
     }
-    ListAll();
 }
-
 Console.WriteLine("start");
 ListAll();
-ChangeUrl();
+AddReview();
